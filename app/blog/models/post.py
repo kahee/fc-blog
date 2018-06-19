@@ -10,7 +10,7 @@ __all__ = (
 
 class Post(models.Model):
     user = models.ForeignKey(
-        BlogUser,
+        'members.BlogUser',
         on_delete=models.CASCADE,
         related_name='my_posts',
     )
@@ -28,12 +28,12 @@ class Post(models.Model):
 
 class PostLike(models.Model):
     post = models.ForeignKey(
-        Post,
+        'Post',
         on_delete=models.CASCADE,
         related_name='post_likes',
     )
     user = models.ForeignKey(
-        BlogUser,
+        'members.BlogUser',
         on_delete=models.CASCADE,
         related_name='my_post_likes',
     )

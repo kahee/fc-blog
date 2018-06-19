@@ -1,8 +1,5 @@
 from django.db import models
 
-from members.models import BlogUser
-from blog.models import Post
-
 __all__ = (
     'Comment',
     'CommentLike',
@@ -11,12 +8,12 @@ __all__ = (
 
 class Comment(models.Model):
     user = models.ForeignKey(
-        BlogUser,
+        'members.BlogUser',
         on_delete=models.CASCADE,
         related_name='my_comments',
     )
     post = models.ForeignKey(
-        Post,
+        'Post',
         on_delete=models.CASCADE,
         related_name='comments',
         blank=True,
@@ -31,29 +28,29 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.user}: {self.content}'
-
-    def toggle_like(self, user):
-        if self.comment_likes.get(user=user).comment:
-            self.comment_likes.get(user=user).delete()
-            return f'{user.name}님이의 좋아요가 삭제되었습니다.'
-
-        else:
-            return self.comment_likes.create(
-                user=user,
-                check=True,
-            )
+    # 
+    # def toggle_like(self, user):
+    #     if self.comment_likes.get(user=user).comment:
+    #         self.comment_likes.get(user=user).delete()
+    #         return f'{user.name}님이의 좋아요가 삭제되었습니다.'
+    #
+    #     else:
+    #         return self.comment_likes.create(
+    #             user=user,
+    #             check=True,
+    #         )
 
 
 class CommentLike(models.Model):
     check = models.BooleanField(default=False)
     comment = models.ForeignKey(
-        Comment,
+        'Comment',
         on_delete=models.CASCADE,
         related_name='comment_likes',
     )
 
     user = models.ForeignKey(
-        BlogUser,
+        'members.BlogUser',
         on_delete=models.CASCADE,
         related_name='my_comment_likes',
     )
