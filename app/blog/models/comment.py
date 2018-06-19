@@ -1,6 +1,5 @@
 from django.db import models
 
-
 from members.models import BlogUser
 from blog.models import Post
 
@@ -26,8 +25,11 @@ class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def like_users(self):
+        return f'{self.comment_likes.all()}'
+
     def __str__(self):
-        pass
         return f'{self.user}: {self.content}'
 
 
@@ -44,3 +46,7 @@ class CommentLike(models.Model):
         related_name='my_comment_likes',
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user}님이 ({self.comment})를 좋아합니다.'
+
