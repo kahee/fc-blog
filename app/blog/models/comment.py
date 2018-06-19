@@ -1,6 +1,9 @@
 from django.db import models
 
 
+from members.models import BlogUser
+from blog.models import Post
+
 __all__ = (
     'Comment',
     'CommentLike',
@@ -9,12 +12,12 @@ __all__ = (
 
 class Comment(models.Model):
     user = models.ForeignKey(
-        'BlogUser',
+        BlogUser,
         on_delete=models.CASCADE,
         related_name='my_comments',
     )
     post = models.ForeignKey(
-        'Post',
+        Post,
         on_delete=models.CASCADE,
         related_name='comments',
         blank=True,
@@ -30,13 +33,13 @@ class Comment(models.Model):
 
 class CommentLike(models.Model):
     comment = models.ForeignKey(
-        'Comment',
+        Comment,
         on_delete=models.CASCADE,
         related_name='comment_likes',
     )
 
     user = models.ForeignKey(
-        'BlogUser',
+        BlogUser,
         on_delete=models.CASCADE,
         related_name='my_comment_likes',
     )
