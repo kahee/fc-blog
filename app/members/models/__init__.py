@@ -1,3 +1,2 @@
-from django.db import models
-
-# Create your models here.
+from .bloguser import *
+from .user_info import *
