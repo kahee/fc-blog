@@ -32,8 +32,20 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.user}: {self.content}'
 
+    def toggle_like(self, user):
+        if self.comment_likes.get(user=user).comment:
+            self.comment_likes.get(user=user).delete()
+            return f'{user.name}님이의 좋아요가 삭제되었습니다.'
+
+        else:
+            return self.comment_likes.create(
+                user=user,
+                check=True,
+            )
+
 
 class CommentLike(models.Model):
+    check = models.BooleanField(default=False)
     comment = models.ForeignKey(
         Comment,
         on_delete=models.CASCADE,
@@ -49,4 +61,3 @@ class CommentLike(models.Model):
 
     def __str__(self):
         return f'{self.user}님이 ({self.comment})를 좋아합니다.'
-
