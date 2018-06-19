@@ -1,5 +1,6 @@
 from django.db import models
 
+from blog.models import Post
 from members.models import BlogUser
 
 
@@ -8,6 +9,13 @@ class Comment(models.Model):
         BlogUser,
         on_delete=models.CASCADE,
         related_name='my_comments',
+    )
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        blank=True,
+        null=True
     )
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

@@ -11,9 +11,19 @@ class BlogUser(models.Model):
         'self',
         related_name='my_friends',
         symmetrical=False,
+        blank=True,
     )
     block_users = models.ManyToManyField(
         'self',
         related_name='block_friends',
         symmetrical=False,
+        blank=True,
     )
+
+    @property
+    def posts(self):
+        return f'내가 작성한 글 목록: {self.my_posts.all()}'
+
+    def __str__(self):
+        return self.name
+
