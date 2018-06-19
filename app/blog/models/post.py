@@ -1,11 +1,15 @@
 from django.db import models
 
-from members.models import BlogUser
+
+__all__ = (
+    'Post',
+    'PostLike',
+)
 
 
 class Post(models.Model):
     user = models.ForeignKey(
-        BlogUser,
+        'BlogUser',
         on_delete=models.CASCADE,
         related_name='my_posts',
     )
@@ -19,12 +23,12 @@ class Post(models.Model):
 
 class PostLike(models.Model):
     post = models.ForeignKey(
-        Post,
+        'Post',
         on_delete=models.CASCADE,
         related_name='post_likes',
     )
     user = models.ForeignKey(
-        BlogUser,
+        'BlogUser',
         on_delete=models.CASCADE,
         related_name='my_post_likes',
     )

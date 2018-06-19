@@ -1,17 +1,20 @@
 from django.db import models
 
-from blog.models import Post
-from members.models import BlogUser
+
+__all__ = (
+    'Comment',
+    'CommentLike',
+)
 
 
 class Comment(models.Model):
     user = models.ForeignKey(
-        BlogUser,
+        'BlogUser',
         on_delete=models.CASCADE,
         related_name='my_comments',
     )
     post = models.ForeignKey(
-        Post,
+        'Post',
         on_delete=models.CASCADE,
         related_name='comments',
         blank=True,
@@ -20,16 +23,20 @@ class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        pass
+        return f'{self.user}: {self.content}'
+
 
 class CommentLike(models.Model):
     comment = models.ForeignKey(
-        Comment,
+        'Comment',
         on_delete=models.CASCADE,
         related_name='comment_likes',
     )
 
     user = models.ForeignKey(
-        BlogUser,
+        'BlogUser',
         on_delete=models.CASCADE,
         related_name='my_comment_likes',
     )

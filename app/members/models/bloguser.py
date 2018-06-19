@@ -1,5 +1,7 @@
 from django.db import models
 
+from blog.models import Comment
+
 __all__ = (
     'BlogUser',
 )
@@ -19,6 +21,11 @@ class BlogUser(models.Model):
         symmetrical=False,
         blank=True,
     )
+
+    @property
+    def comments(self):
+        return f'내가 작성한 댓글 목록 : {Comment.objects.filter(user=self)}'
+        # return f'내가 작성한 댓글 목록: {self.my_comments.all()}'
 
     @property
     def posts(self):
