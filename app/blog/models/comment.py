@@ -6,6 +6,8 @@ from .commoninfo import CommonInfo
 __all__ = (
     'Comment',
     'CommentLike',
+    'CommentAdmin',
+    'CommentLikeAdmin',
 )
 
 

@@ -6,6 +6,8 @@ from blog.models.commoninfo import CommonInfo
 __all__ = (
     'Post',
     'PostLike',
+    'PostAdmin',
+    'PostLikeAdmin',
 )
 
 
