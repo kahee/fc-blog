@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.db import models
 
 from .commoninfo import CommonInfo
@@ -31,6 +32,10 @@ class Comment(CommonInfo):
         return f'{self.user}: {self.content}'
 
 
+class CommentAdmin(admin.ModelAdmin):
+    readonly_fields = ('created_at',)
+
+
 class CommentLike(CommonInfo):
     comment = models.ForeignKey(
         'Comment',
@@ -46,3 +51,7 @@ class CommentLike(CommonInfo):
 
     def __str__(self):
         return f'{self.user}님이 ({self.comment})를 좋아합니다.'
+
+
+class CommentLikeAdmin(admin.ModelAdmin):
+    readonly_fields = ('created_at',)

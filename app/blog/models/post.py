@@ -26,6 +26,12 @@ class Post(CommonInfo):
         return self.title
 
 
+# 상속 받은 필드의 경우 Admin 페이지에서 볼 수 없어서
+# 해당 필들르 보기 위해 아래와 같이 설정
+class PostAdmin(admin.ModelAdmin):
+    readonly_fields = ('created_at',)
+
+
 class PostLike(CommonInfo):
     post = models.ForeignKey(
         'Post',
@@ -40,3 +46,7 @@ class PostLike(CommonInfo):
 
     def __str__(self):
         return f'{self.user}님이 ({self.post})를 좋아합니다.'
+
+
+class PostLikeAdmin(admin.ModelAdmin):
+    readonly_fields = ('created_at',)
