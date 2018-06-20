@@ -11,13 +11,13 @@ class BlogUser(models.Model):
         'self',
         related_name='my_friends',
         symmetrical=False,
-        blank=True,
+        # blank=True,
     )
     block_users = models.ManyToManyField(
         'self',
         related_name='block_friends',
         symmetrical=False,
-        blank=True,
+        # blank=True,
     )
 
     @property

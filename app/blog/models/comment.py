@@ -1,12 +1,14 @@
 from django.db import models
 
+from .commoninfo import CommonInfo
+
 __all__ = (
     'Comment',
     'CommentLike',
 )
 
 
-class Comment(models.Model):
+class Comment(CommonInfo):
     user = models.ForeignKey(
         'members.BlogUser',
         on_delete=models.CASCADE,
@@ -20,7 +22,6 @@ class Comment(models.Model):
         null=True
     )
     content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
 
     @property
     def like_users(self):
@@ -28,21 +29,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.user}: {self.content}'
-    # 
-    # def toggle_like(self, user):
-    #     if self.comment_likes.get(user=user).comment:
-    #         self.comment_likes.get(user=user).delete()
-    #         return f'{user.name}님이의 좋아요가 삭제되었습니다.'
-    #
-    #     else:
-    #         return self.comment_likes.create(
-    #             user=user,
-    #             check=True,
-    #         )
 
 
-class CommentLike(models.Model):
-    check = models.BooleanField(default=False)
+class CommentLike(CommonInfo):
     comment = models.ForeignKey(
         'Comment',
         on_delete=models.CASCADE,
@@ -54,7 +43,6 @@ class CommentLike(models.Model):
         on_delete=models.CASCADE,
         related_name='my_comment_likes',
     )
-    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.user}님이 ({self.comment})를 좋아합니다.'
