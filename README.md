@@ -1,4 +1,4 @@
-##Django Model 과제 
+## Django Model 과제 
 
 ### members app
 - BlogUser
